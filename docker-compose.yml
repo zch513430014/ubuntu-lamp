@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  ubuntu-lamp:
+    build:
+      context: ./images/ubuntu-lamp/
+      args:
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+        - PHP_VERSION=${PHP_VERSION}
+    container_name: ubuntu-lamp
+    restart: always
+    volumes:
+      - ./conf/php:/etc/php:rw
+    networks:
+      - backend
+    tty: true
+    stdin_open: true
